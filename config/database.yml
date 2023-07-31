@@ -19,7 +19,7 @@ default: &default
 
 development:
   <<: *default
-adapter: mysql2
+  adapter: mysql2
   username: root
   password:
   host: localhost
@@ -58,8 +58,5 @@ test:
 #
 production:
   <<: *default
- # database: furima_39526_production
- # username: furima_39526
-  #password: <%= ENV["FURIMA_39526_DATABASE_PASSWORD"] %>
   adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
