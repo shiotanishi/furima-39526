@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resources :furimas, only: :index
-end
+  root to: 'furimas#index'
+  resources :furimas
+end  
