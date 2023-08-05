@@ -2,46 +2,44 @@
 
 ## users テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| nick_name          | string | null: false,|
-| email              | string | null: false |
-| encrypted_password | string | null: false |
-| first_name         | string | null: false |
-| last-name          | string | null: false |
-| birthday           | string | null: false |
-| favorite           | string | null: false |
+| Column             | Type   | Options                  |
+| ------------------ | ------ | -----------              |
+| nick_name          | string | null: false              |
+| email              | string | null: false,unique: true |
+| encrypted_password | string | null: false              |
+| first_name         | string | null: false              |
+| last_name          | string | null: false              |
+| first-kana         | string | null: false              |
+| last-kana          | string | null: false              |
+| birthday           | date   | null: false              |
 
 
 
 ### Association
 
-- has_many :users
-- has_many :rooms,through: :exhibit
-- has_many :purchase
+- has_many :items
+- has_one :addresses
 
 
-## exhibit テーブル
+## items テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| image              | string | null: false |
-| item_name          | string | null: false |
-| info               | string | null: false |
-| price              | string | null: false |
-| category           | string | null: false |
-| condition          | string | null: false |
-| brand              | string | null: false |
-| shipping fee       | string | null: false |
-| prefecture         | string | null: false |
-| scheduled delivery | string | null: false |
-
+| Column                | Type   | Options     |
+| ----------------------| ------ | ----------- |
+| item_name             | string | null: false |
+| info                  | text   | null: false |
+| price                 | string | null: false |
+| category_id           | string | null: false |
+| condition_id          | string | null: false |
+| brand_id              | string | null: false |
+| shipping-fee_id       | string | null: false |
+| prefecture_id         | string | null: false |
+| scheduled-delivery_id | date   | null: false |
+| user_id               | integer| null: false |
 
 
 ### Association
 
-- has_many :users
-- has_many :rooms,through: :exhibit
+- belongs_to :users
 - has_one :purchase
 
 
@@ -49,19 +47,42 @@
 
 | Column             | Type       | Options           |
 | ------------------ | ---------- | ----------------- |
-| seller             | references | foreign_key: true |
-| price              | references | foreign_key: true |
-| category           | references | foreign_key: true |
-| condition          | references | foreign_key: true |
-| delivery_charge    | string     | null: false       |
-| sender             | string     | null: false       |
-| estimated_delivery | string     | null: false       |
-| favorite           | references | foreign_key: true |
+| user_id            | integer       | null: false       |
+| price              | integer    | foreign_key: true |
+| category           | integer    | foreign_key: true |
+| condition          | integer    | foreign_key: true |
+| delivery_charge    | integer    | null: false       |
+| sender             | integer    | null: false       |
+| estimated_delivery | integer    | null: false       |
+| comment            | text       | null: false       |
+
 
 
 
 ### Association
 
-- belongs_to :exhibit
+- belongs_to :item
 - belongs_to :user
+
+
+
+## addresses テーブル
+
+| Column             | Type       | Options           |
+| ------------------ | ---------- | ----------------- |
+| post_code          | string     | null: false       |
+| prefectures        | integer    | foreign_key: true |
+| municipality       | integer    | foreign_key: true |
+| address            | integer    | foreign_key: true |
+| building_name      | string     | null: false       |
+| telephone_number   | string     | null: false       |
+| user_id            | integer    | null: false       |
+
+
+## Association
+
+- belongs_to :user
+- has_many :purchase
+
+
 
