@@ -1,5 +1,7 @@
 class FurimasController < ApplicationController
   before_action :set_furima, only: [:edit, :show]
+  before_action :move_to_index, except: [:index, :show]
+
 
   def index
     @furimas = Furima.all

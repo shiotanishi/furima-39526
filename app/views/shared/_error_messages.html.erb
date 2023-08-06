@@ -7,3 +7,12 @@
   </ul>
 </div>
 <% end %>
+
+  <%= f.label :nick_name %>
+  <%= f.text_field :nick_name %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.submit "Create User" %>
+<% end %>
