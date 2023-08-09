@@ -29,6 +29,14 @@ class FurimasController < ApplicationController
     redirect_to root_path
   end
 
+  def update
+    if current_user.update(user_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def show
   end
 
@@ -39,6 +47,12 @@ class FurimasController < ApplicationController
 
   def set_furima
     @furima = Furima.find(params[:id])
+  end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
+    end
   end
 
   
