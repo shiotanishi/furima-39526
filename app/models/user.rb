@@ -6,9 +6,9 @@ class User < ApplicationRecord
 
          validates :nick_name, presence: true
          validates :email, presence: true
-      with_options presence: true, format:   { with: /(?=.*?[a-zA-Z])(?=.*?\d)/} do
-         validates :password, presence: true
-      end
+      with_options PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+         validates_format_of :password, with: PASSWORD_REGEX
+        end
       with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ } do
          validates :first_name, presence: true
          validates :last_name, presence: true

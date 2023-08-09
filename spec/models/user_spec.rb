@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
       user = User.new(nick_name: nil)
       user.valid?
       expect(user.errors[:nick_name]).to include("can't be blank")
-  end
+    end
 
   it 'メールアドレスが必須であること' do
     user = User.new(email: nil)
