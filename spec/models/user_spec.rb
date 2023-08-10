@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
     it 'ニックネームが必須であること' do
       @user.nick_name = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "Nick_name can't be blank"
+      expect(@user.errors.full_messages).to include "Nick name can't be blank"
     end
 
     it 'メールアドレスが必須であること' do
@@ -21,40 +21,43 @@ RSpec.describe User, type: :model do
     
    
     it 'メールアドレスが一意性であること' do
-      @user.email ='test@example.com'
-      @user.valid?
-      expect(@user.errors.full_messages).to include "has already been taken"
+      @user.save
+      another_user = FactoryBot.build(:user)
+      another_user.email = @user.email
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include "Email has already been taken"
     end
 
     it 'メールアドレスは、@を含む必要があること' do
       @user.email= 'invalid_email'
       @user.valid?
-      expect(@user.errors.full_messages).to include "is invalid"
+      expect(@user.errors.full_messages).to include "Email is invalid"
     end
 
     it 'パスワードが必須であること' do
       @user.password = ''
       @user.valid?
-      expect(@user.errors.full_messages).to  include "can't be blank"
+      expect(@user.errors.full_messages).to include"Password can't be blank"
     end
 
     it 'パスワードは、6文字以上での入力が必須であること' do
-      @user.password = '12345'
+      @user.password = '0000a'
+      @user.password_confirmation = '0000a'
       @user.valid?
-      expect(@user.errors.full_messages).to include "is too short (minimum is 6 characters"
+      expect(@user.errors.full_messages).to include "Password is too short (minimum is 6 characters)"
     end
 
     it 'パスワードは、半角英数字混合での入力が必須であること' do
-      @user.password = 'password'
+      @user.password = 'Aあア阿'
       @user.valid?
-      expect(@user.errors.full_messages).to include"should include both letters and numbers"
-      end
+      expect(@user.errors.full_messages).to include "Password is invalid"
+    end
 
     it 'パスワードとパスワード（確認）は、値の一致が必須であること' do
-      @user.password = 'password'
-      @user.password_confirmation = 'mismatch'
+      @user.password = '123456'
+      @user.password_confirmation = '1234567'
       @user.valid?
-      expect(@user.errors.full_messages).to include"doesn't match Password"
+      expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
     end
   end
 end

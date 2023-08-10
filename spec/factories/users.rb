@@ -8,6 +8,6 @@ FactoryBot.define do
     last_name             {'たろう'} 
     first_kana            {'サトウ'}
     last_kana             {'タロウ'}
-    birthday              {Faker::Date.birthday}
+    birthday              {"1932-02-03"}
   end
 end
