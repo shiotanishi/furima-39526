@@ -41,6 +41,7 @@ class FurimasController < ApplicationController
   end
 
   private
+
   def furima_params
     params.require(:furima).permit(:name, :image, :text)
   end
@@ -50,11 +51,8 @@ class FurimasController < ApplicationController
   end
 
   def move_to_index
-    unless user_signed_in?
-      redirect_to action: :index
-    end
+    return if user_signed_in?
+
+    redirect_to action: :index
   end
-
-  
-
 end
