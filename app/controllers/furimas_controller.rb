@@ -43,8 +43,7 @@ class FurimasController < ApplicationController
   private
 
   def furima_params
-    params.require(:furima).permit(:name, :image, :text)
-  end
+    params.require(:message).permit(:content, :image).merge(user_id: current_user.id)  end
 
   def set_furima
     @furima = Furima.find(params[:id])
