@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    Item.create(item_params)
+    @item =Item.create(item_params)
     redirect_to '/'
   end
 
@@ -43,7 +43,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:content, :image).merge(user_id: current_user.id)  end
+    params.require(:item).permit(:item_name, :info, :price, :image, :category_id, :condition_id, :shipping_fee_id, :prefecture_id, :scheduled_delivery_id).merge(user_id: current_user.id)
+  end
 
   def set_item
     @item = Item.find(params[:id])
