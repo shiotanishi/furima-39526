@@ -117,3 +117,5 @@ RSpec.describe Item, type: :model do
           @item.valid?
           expect(@item.errors.full_messages).to include("Price is out of setting range")
         end
+      end
+  end
