@@ -10,19 +10,19 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @item.attributes = {
-      item_name: params[:item_name],
-      info: params[:info],
-      category_id: params[:category_id],
-      condition_id: params[:condition_id],
-      shipping_fee_id: params[:shipping_fee_id],
-      prefecture_id: params[:prefecture_id],
-      scheduled_delivery_id: params[:scheduled_delivery_id]
-    }
+    # @item.attributes = {
+    #   item_name: params[:item_name],
+    #   info: params[:info],
+    #   category_id: params[:category_id],
+    #   condition_id: params[:condition_id],
+    #   shipping_fee_id: params[:shipping_fee_id],
+    #   prefecture_id: params[:prefecture_id],
+    #   scheduled_delivery_id: params[:scheduled_delivery_id]
+    # }
   end
 
   def create
-    @item =Item.create(item_params)
+    @item =Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
