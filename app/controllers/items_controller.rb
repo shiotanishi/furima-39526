@@ -2,12 +2,9 @@ class ItemsController < ApplicationController
   # before_action :set_item, only: [:edit, :show]
   before_action :authenticate_user!, only: [:new]
 
-
-
   def index
-    @item = Item.all.includes(:user).order("created_at DESC")
+    @item = Item.all.includes(:user).order('created_at DESC')
   end
-    
 
   def new
     @item = Item.new
@@ -23,11 +20,11 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item =Item.new(item_params)
+    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
-           render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -60,7 +57,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :info, :price, :image, :category_id, :condition_id, :shipping_fee_id, :prefecture_id, :scheduled_delivery_id).merge(user_id: current_user.id)
+    params.require(:item).permit(:item_name, :info, :price, :image, :category_id, :condition_id, :shipping_fee_id,
+                                 :prefecture_id, :scheduled_delivery_id).merge(user_id: current_user.id)
   end
 
   # def set_item
