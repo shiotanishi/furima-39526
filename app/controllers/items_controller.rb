@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  # before_action :set_item, only: [:edit, :show]
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user! , only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:edit, :show, :update]
+  before_action :set_user,only: [:edit, :update]
 
   def index
     @item = Item.all.includes(:user).order('created_at DESC')
@@ -34,14 +35,17 @@ class ItemsController < ApplicationController
   #   redirect_to root_path
   # end
 
-  # def edit
-  # end
+  def edit
 
-  # def update
-  #   @item = Item.find(params[:id])
-  #   @item.update(item_params)
-  #   redirect_to root_path
-  # end
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   # def update_user
   #   if current_user.update(user_params)
@@ -52,7 +56,8 @@ class ItemsController < ApplicationController
   # end
 
   def show
-    @item = Item.find(params[:id])
+    #@item = Item.find(params[:id])
+
   end
 
   private
@@ -62,9 +67,17 @@ class ItemsController < ApplicationController
                                  :prefecture_id, :scheduled_delivery_id).merge(user_id: current_user.id)
   end
 
-  # def set_item
-  #   @item = Item.find(params[:id])
-  # end
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def set_user
+    
+    redirect_to root_path unless current_user == @item.user
+  end
+
+
+
 
   # def move_to_inde
   #   return if user_signed_in?
