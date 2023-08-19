@@ -34,8 +34,15 @@ class ItemsController < ApplicationController
   #   redirect_to root_path
   # end
 
-  # def edit
-  # end
+  def edit
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  
+  end
 
   # def update
   #   @item = Item.find(params[:id])
