@@ -1,5 +1,8 @@
-class Purchase< ActiveHash::Base
-  validates :address, presence: true
+class Purchase< ActiveRecord::Base
+  validates :item_id, presence: true
+  validates :user_id, presence: true
+
+
   belongs_to :item
   belongs_to :user
  
