@@ -1,6 +1,6 @@
 class PurchaseAddress 
   include ActiveModel::Model
-  attr_accessor :post_code, :prefecture_id, :municipality, :address, :building_name, :telephone_number, :purchase, :item_id, :user_id
+  attr_accessor :post_code, :prefecture_id, :municipality, :address, :building_name, :telephone_number, :purchase, :item_id, :user_id, :token
   
 
   with_options presence: true do
@@ -9,8 +9,8 @@ class PurchaseAddress
     validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
     validates :municipality
     validates :address
-    validates :telephone_number 
-    
+    validates :telephone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Enter a valid phone number" }
+    validates :token
   
   end
 
