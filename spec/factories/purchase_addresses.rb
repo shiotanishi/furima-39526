@@ -5,9 +5,7 @@ FactoryBot.define do
     municipality { 'テスト市' }
     address { 'テスト町1-2-3' }
     building_name { 'テストビル101号室' }
-    telephone_number { '090-1234-5678' }
-    association :purchase
-    price {3000}
-    token { 1 }
+    telephone_number { '09012345678' }
+    token { "tok_abcdefghijk00000000000000000" }
   end
 end

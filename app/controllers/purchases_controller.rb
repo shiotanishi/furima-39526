@@ -1,4 +1,4 @@
-class PurchaseController < ApplicationController
+class PurchasesController < ApplicationController
   
   
 
@@ -10,6 +10,8 @@ class PurchaseController < ApplicationController
   end
 
   def create
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+
     @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?

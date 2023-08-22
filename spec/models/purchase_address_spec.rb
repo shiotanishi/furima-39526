@@ -4,7 +4,6 @@ RSpec.describe PurchaseAddress, type: :model do
   before do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
-    token = FactoryBot.create(:token)
     @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
   end    
 
@@ -13,7 +12,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it '@purchase_addressが有効であること' do
         expect(@purchase_address).to be_valid
       end
-    end
+    
     
     it 'tokenが有効であること' do
       expect(@purchase_address).to be_valid
@@ -58,7 +57,7 @@ RSpec.describe PurchaseAddress, type: :model do
       end
 
       it '10桁以上11桁以内の半角数値でない場合は無効であること' do
-        @purchase_address.telephone_number = '09012345678'
+        @purchase_address.telephone_number = '090123456789234'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Telephone number is invalid. Enter a valid phone number")
       end
@@ -67,7 +66,6 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.token =''
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
-      end
       end
     end
   end
