@@ -1,19 +1,15 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user! , only: [:index, :create]
-
-  
+  before_action :set_item_and_purchase_address, only: [:index, :create]
+  before_action :set_public_key, only: [:index]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new
 
   end
 
   def create
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
-    @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
       process_payment
       @purchase_address.save
@@ -38,6 +34,9 @@ class PurchasesController < ApplicationController
       currency: 'jpy' 
     )
   end
- 
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
 end
