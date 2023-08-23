@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
-  
+  before_action :authenticate_user! , only: [:index, :create]
+
   
 
   def index
@@ -11,7 +12,6 @@ class PurchasesController < ApplicationController
 
   def create
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-
     @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
