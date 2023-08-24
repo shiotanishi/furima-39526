@@ -73,7 +73,7 @@
 ## Association
 
 
-- has_many :purchase
+- belongs_to :purchase
 
 
 
