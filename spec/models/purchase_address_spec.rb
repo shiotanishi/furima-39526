@@ -34,7 +34,7 @@ RSpec.describe PurchaseAddress, type: :model do
       end
 
       it 'prefecture_idが空では無効であること' do
-        @purchase_address.prefecture_id = ''
+        @purchase_address.prefecture_id = 1
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
       end
