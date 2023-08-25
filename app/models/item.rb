@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   belongs_to :scheduled_delivery
   
 
-  validates :price, presence: true, numericality: { only_integer: true }
+ 
 
   with_options presence: true do
     validates :item_name
